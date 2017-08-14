@@ -170,7 +170,7 @@ vars:
   ansistrano_ensure_shared_paths_exist: yes
   ansistrano_ensure_basedirs_shared_files_exist: yes
 
-  ansistrano_deploy_via: "rsync" # Method used to deliver the code to the server. Options are copy, rsync, git, svn, s3 or download. Copy, download and s3 have an optional step to unarchive the downloaded file which can be used by adding _unarchive. You can check all the options inside tasks/update-code folder!
+  ansistrano_deploy_via: "rsync" # Method used to deliver the code to the server. Options are copy, rsync, maven_artifact, git, svn, s3 or download. Copy, download and s3 have an optional step to unarchive the downloaded file which can be used by adding _unarchive. You can check all the options inside tasks/update-code folder!
   ansistrano_allow_anonymous_stats: yes
 
   # Variables used in the rsync deployment strategy
@@ -214,6 +214,20 @@ vars:
   # Optional variables, omitted by default
   ansistrano_s3_aws_access_key: YOUR_AWS_ACCESS_KEY
   ansistrano_s3_aws_secret_key: YOUR_AWS_SECRET_KEY
+
+  # Variables used in the Maven artifact deployment strategy (with defaults shown)
+  # Most of the variables used are from maven_artifact module of Ansible, see the [documentation](http://docs.ansible.com/ansible/latest/maven_artifact_module.html)
+  ansistrano_maven_artifact_id: "YOUR_ARTIFACT_ID" # What artifact ID to deploy, required
+  ansistrano_maven_classifier: "" # What classifier to deploy
+  ansistrano_maven_path: "{{ ansistrano_release_path.stdout }}/YOUR_ARTIFACT_FILENAME.JAR" # Destination artifact filename or directory, relative to your release path. If you omit this, artifact will be downloaded with its original name preserved (i.e. with its version number). Defaults to your release path.
+  ansistrano_maven_extension: "jar" # Downloaded artifact's extension
+  ansistrano_maven_group_id: "YOUR_ARTIFACT_GROUP_ID" # What group ID the artifact has, required
+  ansistrano_maven_password: "" # Maven repository auth password, if you need one.
+  ansistrano_maven_repository_url: "http://repo1.maven.org/maven2" # If you have a private Maven repo you can set it here.
+  ansistrano_maven_timeout: 10 # Connect timeout for the repo
+  ansistrano_maven_username: "" # Maven repository auth username, if you need one.
+  ansistrano_maven_version: "latest" # What artifact version to deploy
+
 
   # Hooks: custom tasks if you need them
   ansistrano_before_setup_tasks_file: "{{ playbook_dir }}/<your-deployment-config>/my-before-setup-tasks.yml"
