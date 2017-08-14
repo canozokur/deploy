@@ -75,6 +75,18 @@ ansistrano_s3_object: s3object.tgz
 ansistrano_s3_region: eu-west-1
 ansistrano_s3_rgw: false
 
+## Maven artifact download strategy
+ansistrano_maven_artifact_id: "YOUR_ARTIFACT_ID"
+ansistrano_maven_classifier: ""
+ansistrano_maven_path: "YOUR_ARTIFACT_FILENAME.JAR"
+ansistrano_maven_extension: "jar"
+ansistrano_maven_group_id: "YOUR_ARTIFACT_GROUP_ID"
+ansistrano_maven_password: ""
+ansistrano_maven_repository_url: "http://repo1.maven.org/maven2"
+ansistrano_maven_timeout: 10
+ansistrano_maven_username: ""
+ansistrano_maven_version: "latest"
+
 ## Sends anonymous stats to the www.ansistrano.com servers
 ## You can disallow it by just setting this parameter to "no" in your playbook
 ansistrano_allow_anonymous_stats: yes

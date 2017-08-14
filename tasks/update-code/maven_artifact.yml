@@ -12,7 +12,7 @@
     extension: "{{ ansistrano_maven_extension | default(omit) }}"
     group_id: "{{ ansistrano_maven_group_id }}"
     password: "{{ ansistrano_maven_password }}"
-    repository_url: "{{ ansistrano_maven_url | default(omit) }}"
+    repository_url: "{{ ansistrano_maven_repository_url | default(omit) }}"
     timeout: "{{ ansistrano_maven_timeout | default(10) }}"
     username: "{{ ansistrano_maven_user | default(omit) }}"
     version: "{{ ansistrano_maven_version | default(omit) }}"
