@@ -1,0 +1,18 @@
+---
+- name: ANSISTRANO | maven_download | Create release folder
+  file:
+    state: directory
+    path: "{{ ansistrano_release_path.stdout }}"
+
+- name: ANSISTRANO | maven_download | Download artifact
+  maven_artifact:
+    artifact_id: "{{ ansistrano_maven_artifact_id }}"
+    classifier: "{{ ansistrano_maven_classifier | default(omit)}}"
+    dest: "{{ ansistrano_release_path.stdout }}/{{ ansistrano_maven_path | default() }}"
+    extension: "{{ ansistrano_maven_extension | default(omit) }}"
+    group_id: "{{ ansistrano_maven_group_id }}"
+    password: "{{ ansistrano_maven_password }}"
+    repository_url: "{{ ansistrano_maven_url | default(omit) }}"
+    timeout: "{{ ansistrano_maven_timeout | default(10) }}"
+    username: "{{ ansistrano_maven_user | default(omit) }}"
+    version: "{{ ansistrano_maven_version | default(omit) }}"
