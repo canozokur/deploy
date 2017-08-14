@@ -16,3 +16,4 @@
     timeout: "{{ ansistrano_maven_timeout | default(10) }}"
     username: "{{ ansistrano_maven_user | default(omit) }}"
     version: "{{ ansistrano_maven_version | default(omit) }}"
+    validate_certs: "{{ ansistrano_maven_validate_certs | default(omit) }}"

@@ -227,6 +227,7 @@ vars:
   ansistrano_maven_timeout: 10 # Connect timeout for the repo
   ansistrano_maven_username: "" # Maven repository auth username, if you need one.
   ansistrano_maven_version: "latest" # What artifact version to deploy
+  ansistrano_maven_validate_certs: "" # If you host your own repo and don't have valid SSL certificates, you can disable validation.
 
 
   # Hooks: custom tasks if you need them
