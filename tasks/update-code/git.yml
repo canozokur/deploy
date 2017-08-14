@@ -14,6 +14,11 @@
     mode: 0400
   when: ansistrano_git_identity_key_remote_path|trim != ""
 
+- name: ANSISTRANO | GIT | Stat key file details
+  stat:
+    path: "{{ ansistrano_deploy_to }}/git_identity_key"
+  register: keyfile
+
 - name: ANSISTRANO | GIT | Update remote repository
   git:
     repo: "{{ ansistrano_git_repo }}"
@@ -23,24 +28,11 @@
     update: yes
     force: yes
     refspec: "{{ ansistrano_git_refspec | default(omit) }}"
+    key_file: "{{ keyfile.stat.path | default(omit) }}"
   register: ansistrano_git_result_update
-  when: ansistrano_git_identity_key_path|trim == '' and ansistrano_git_identity_key_remote_path|trim == ''
-
-- name: ANSISTRANO | GIT | Update remote repository using SSH key
-  git:
-    repo: "{{ ansistrano_git_repo }}"
-    dest: "{{ ansistrano_deploy_to }}/repo"
-    version: "{{ ansistrano_git_branch }}"
-    accept_hostkey: true
-    update: yes
-    force: yes
-    refspec: "{{ ansistrano_git_refspec | default(omit) }}"
-    key_file: "{{ ansistrano_deploy_to }}/git_identity_key"
-  register: ansistrano_git_result_update_ssh
-  when: ansistrano_git_identity_key_path|trim != "" or ansistrano_git_identity_key_remote_path|trim != ""
 
 - name: ANSISTRANO | GIT | Register ansistrano_git_result variable
-  set_fact: ansistrano_git_result={{ ansistrano_git_result_update_ssh if ansistrano_git_result_update|skipped else ansistrano_git_result_update }}
+  set_fact: ansistrano_git_result="{{ ansistrano_git_result_update }}"
 
 - name: ANSISTRANO | GIT | Shred GIT deployment key
   command: shred -f "{{ ansistrano_deploy_to }}/git_identity_key"
